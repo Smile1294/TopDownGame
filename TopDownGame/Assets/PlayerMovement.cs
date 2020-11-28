@@ -12,8 +12,15 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam;
     Vector2 MousePos;
     public Animator animator;
- 
-    // Update is called once per frame
+    public int maxHealth = 100;
+    public int curenthealth;
+    public HealthBar healthBar;
+
+   void Start()
+    {
+        curenthealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
     void Update()
     {
 
@@ -22,22 +29,27 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.magnitude);
-       MousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        MousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetButtonDown("Fire1"))
         {
             Shooet();
-
+            takedmg(20);
         }
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * speed *Time.deltaTime);
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
         Vector2 lookDir = MousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
 
     }
-
+    void takedmg(int damage)
+    {
+        curenthealth -= damage;
+        healthBar.SetHealth(curenthealth);
+    }
+  
     void Shooet()
     {
 
