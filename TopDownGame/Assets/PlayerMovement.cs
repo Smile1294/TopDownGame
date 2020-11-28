@@ -49,7 +49,12 @@ public class PlayerMovement : MonoBehaviour
         curenthealth -= damage;
         healthBar.SetHealth(curenthealth);
     }
-  
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject == arrowPrefab)
+        { Debug.Log("hey"); }
+    }
+
     void Shooet()
     {
         GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);

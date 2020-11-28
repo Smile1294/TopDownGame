@@ -13,13 +13,14 @@ public class Arrow : MonoBehaviour
         Vector2 newposition = currentposition + velocity * Time.deltaTime;
         RaycastHit2D[] hits = Physics2D.LinecastAll(currentposition, newposition);
         foreach(RaycastHit2D hit in hits)
-
         {
             GameObject other = hit.collider.gameObject;
             if(other != Player)
             {
                 if (other.CompareTag("Player"))
                 {
+                    Player = other.gameObject;
+                    Player.GetComponent<PlayerMovement>().takedmg(20);
                     Destroy(gameObject);
                     break;                   
                 }
@@ -28,5 +29,5 @@ public class Arrow : MonoBehaviour
         transform.position = newposition;
 
     }
-
+  
 }
