@@ -21,7 +21,6 @@ public class Arrow : MonoBehaviour
                 if (other.CompareTag("Player"))
                 {
                     Destroy(gameObject);
-                    GameObject.Find("PlayerMovement").GetComponent<PlayerMovement>().takedmg(20);
                     break;                   
                 }
             }
