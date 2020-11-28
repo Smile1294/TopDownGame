@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public int maxHealth = 100;
     public int curenthealth;
     public HealthBar healthBar;
+    public BoxCollider2D boxCollider2D;
 
    void Start()
     {
@@ -23,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         animator.SetFloat("Horizontal", movement.x);
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Shooet();
-            takedmg(20);
+          
         }
     }
 
@@ -60,10 +60,15 @@ public class PlayerMovement : MonoBehaviour
         GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
         arrow.GetComponent<Rigidbody2D>().velocity = shootingDirection*FireSpeed;
         arrow.transform.Rotate(0.0f, 0.0f,angle);
-        
 
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Weapon")
+        {
+            takedmg(20); 
+        }
+    }
 
 
 }
